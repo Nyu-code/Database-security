@@ -2,16 +2,16 @@
 <html>
     <head>
         <title>Mon Site</title>
-        <link rel="stylesheet" href="<?php echo RACINE_SITE; ?>inc/css/style.css">
+        <link rel="stylesheet" href="<?php echo RACINE; ?>inc/css/style.css">
     </head>
     <body>    
         <header>
             <div class="conteneur">
                 <div>
-                    <a href="" title="Mon Site">MonSite.com</a>
+                    <a href="" title="Mon Site">Accueil</a>
                 </div>
                 <nav>
-                    <a href="<?php echo RACINE_SITE; ?>gestion_utilisateurs.php">Gestion utilisateur</a>
+                    <a href="<?php echo RACINE; ?>gestion_utilisateurs.php">Gestion utilisateur</a>
                 </nav>
             </div>
         </header>

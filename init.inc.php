@@ -20,7 +20,7 @@
 
     //Session
     session_start();
-    define("RACINE","/Projet SSI/");
+    define("RACINE","/projetssi/");
 
     //Variables
     $contenu='';
