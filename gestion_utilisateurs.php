@@ -1,9 +1,22 @@
 <?php require_once("inc/init.inc.php"); ?>
 <?php require_once("inc/haut.inc.php"); ?>
+<?php
+    $prenom = valid_donnees($_POST["prenom"]);
+    $nom = valid_donnees($_POST["nom"]);
+    $birthdate = valid_donnees($_POST["birthdate"]);
+    $ville = valid_donnees($_POST["ville"]);
+    $numCB = valid_donnees($_POST["numCB"]);
 
+    function valid_donnees($donnees){
+        $donnees = trim($donnees);
+        $donnees = stripslashes($donnees);
+        $donnees = htmlspecialchars($donnees);
+        return $donnees;
+    }
+?>
 <form method="post" action="">
     
-    <label for="last_name">Nom</label><br>
+    <label for="nom">Nom</label><br>
     <div class="input-field">
     <input type="text" id="nom" name="nom" placeholder="votre nom de famille" pattern="[a-zA-Z0-9-_.]{1,20}" title="caractères acceptés : a-zA-Z0-9-_." required="required"><br><br>
     </div>
