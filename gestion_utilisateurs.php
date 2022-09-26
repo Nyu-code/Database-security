@@ -4,11 +4,17 @@
 <?php
 $message = "";
 if($_SERVER["REQUEST_METHOD"] == "POST") {
+
     function valid_donnees($donnees){
         $donnees = trim($donnees);
         $donnees = stripslashes($donnees);
         $donnees = htmlspecialchars($donnees);
         return $donnees;
+    }
+    function deleteUser($id){
+        $sql = "DELETE FROM utilisateur WHERE id=?";
+        $stmt= $pdo->prepare($sql);
+        $stmt->execute([$id]);
     }
 
     $nom = valid_donnees($_POST['nom']);
@@ -16,13 +22,36 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $birthdate = valid_donnees($_POST['birthdate']);
     $ville = valid_donnees($_POST['ville']);
     $numCB = valid_donnees($_POST['numCB']);
-    $sql = "INSERT INTO `utilisateur` ( `Nom`, `Prénom`, `Date de naissance`, `Ville`, `Numéro de CB`) 
-            VALUES (?,?,?,?,?)";
-    $MySQL -> prepare($sql)->execute([$nom,$prenom,$birthdate,$ville,$numCB]);
-    $message = "L'utilisateur ".$prenom." ".$nom." a bien été ajouter !";
-}
-?>
+    
+    $id = valid_donnees($_POST['numID']);
+    //Pour ajouter un utilisateur
+    if (!empty($nom)&&!empty($prenom)&&!empty($birthdate)&&!empty($ville)&&!empty($numCB)){
+        $sql = "INSERT INTO `utilisateur` ( `Nom`, `Prénom`, `Date de naissance`, `Ville`, `Numéro de CB`) 
+        VALUES (?,?,?,?,?)";
+        $MySQL -> prepare($sql)->execute([$nom,$prenom,$birthdate,$ville,$numCB]);
+        $message = "L'utilisateur ".$prenom." ".$nom." a bien été ajouter !";
+        }
+    
+    }
 
+    //Pour supprimer un utilisateur
+    if (!empty($id)){
+        $sql = "DELETE FROM utilisateur WHERE id=?";
+        $stmt= $MySQL->prepare($sql);
+        $stmt->execute([$id]);
+    }
+
+    //Affichage des données utilisateurs
+    $sql = "SELECT * FROM utilisateur";
+    try {
+        $stmt = $MySQL->query($sql);
+        if ($stmt === false){
+            die("Erreur");
+        }
+    }catch (PDOException $e){
+        echo $e->getMessage();
+    }
+?>
 
 <form method="post" action="<?=$_SERVER['PHP_SELF'];?>">
     
@@ -54,4 +83,38 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <input class="btn" type="submit" name="adduser" value="Ajouter utilisateur">
 </form>
 <b><p id="adduser"><?php echo $message; ?></p></b>
+
+<h1>Liste des utilisateurs</h1>
+ <table>
+   <thead>
+     <tr>
+       <th>ID</th>
+       <th>Nom</th>
+       <th>Prénom</th>
+       <th>Date de naissance</th>
+       <th>Numéro de CB</th>
+       <th>Ville</th>
+     </tr>
+   </thead>
+   <tbody>
+     <?php while($row = $stmt->fetch(PDO::FETCH_ASSOC)) : ?>
+     <tr>
+       <td><?php echo htmlspecialchars($row['id']); ?></td>
+       <td><?php echo htmlspecialchars($row['Nom']); ?></td>
+       <td><?php echo htmlspecialchars($row['Prénom']); ?></td>
+       <td><?php echo htmlspecialchars($row['Date de naissance']); ?></td>
+       <td><?php echo htmlspecialchars($row['Numéro de CB']); ?></td>
+       <td><?php echo htmlspecialchars($row['Ville']); ?></td>
+     </tr>
+     <?php endwhile; ?>
+   </tbody>
+ </table>
+
+<form method="post" action="<?=$_SERVER['PHP_SELF'];?>">
+    <label for="numID">Numéro ID à supprimer</label><br>
+    <div class="input-field">
+    <input type="number" id="numID" name="numID" placeholder="Saisissez le numéro ID de l'utilisateur" required="number"><br>
+    </div>
+    <input class="btn" type="submit" name="deleteuser" value="Supprimer utilisateur">
+</form>
 <?php require_once("inc/bas.inc.php"); ?>
