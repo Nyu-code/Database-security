@@ -61,6 +61,7 @@ form{
     flex-direction: column;
 }
 label {
+    font-size: 25px;
     padding-top: 2rem;
 }
 
@@ -71,15 +72,25 @@ label {
     background-color: lightgrey;
     border-radius: 55px;
     display: grid;
+    justify-items: center;
     grid-template-columns: 100% 0%;
-    padding: 0.4rem;
+    padding: 0.2rem;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+  }
 
 .input-field input {
     background: none;
     outline: none;
     border: none;
     line-height: 1;
+    width: 90%;
     font-weight: 600;
     font-size: 1.1rem;
     color: black;
@@ -99,6 +110,7 @@ label {
     background-color: cornflowerblue;
     color : white;
     text-transform: 600;
+    font-size: 1.5rem;
     margin: 10px 0;
     transition: 0.5s;
 }
@@ -107,6 +119,11 @@ label {
     background-color: dodgerblue;
 }
 
+#adduser {
+    text-align: center;
+    color: firebrick;
+    font-size: 20px;
+}
 footer {
     margin-top: 5rem;
     display: flex;
