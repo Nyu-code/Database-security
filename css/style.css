@@ -119,13 +119,17 @@ input[type=number] {
     background-color: dodgerblue;
 }
 
-#adduser, h1 {
+#adduser{
     margin-top: 2rem;
     text-align: center;
     color:darkblue;
     font-size: 20px;
 }
-
+h1 {
+    text-align: center;
+    color:darkblue;
+    font-size: 40px;
+}
 table{
     margin: 2rem 2rem;
     width: 95%;
@@ -167,6 +171,10 @@ tbody tr{
 .image-suppr {
     cursor: pointer;
     width: 20%;
+}
+#desc_comment {
+    resize: none;
+    font-size: 1.5rem;
 }
 
 footer {

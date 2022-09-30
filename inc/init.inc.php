@@ -19,7 +19,7 @@
 
     //Session
     session_start();
-    define("RACINE","/projetssi/");
+    define("RACINE","/Database-security/");
 
     //Variables
     $contenu='';
